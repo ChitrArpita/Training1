@@ -1,0 +1,23 @@
+import csv
+import sys
+import numpy as np
+import scipy.stats as stats
+
+char=sys.argv[1]
+if char in ['-h', '-H', '-HELP', '--h', '--H' , '--HELP']:
+	print("run the program as follows:")
+	print("\t\tpython <prog_name> <Input_data_file> > <Output_data_file>(if you want output in a file)")
+	print("Input file Structure :\n<group1_positive_count>\t<group1_negative_count>\t<group2_positive_count>\t<group2_negative_count>\n0\t34\t1\t31\n2\t32\t5\t27")
+	
+else :
+
+	with open(sys.argv[1], 'r') as my_file: #input file taking through comman line
+		line=my_file.readlines()
+		reader=csv.reader(line,delimiter='\t') # holding the value of a column
+		for row in reader:
+			c1=row[0]
+			c2=row[1]
+			c3=row[2]
+			c4=row[3]
+			oddsratio, pvalue = stats.fisher_exact([[int(c1), int(c2)], [int(c3), int(c4)]]) #calculating the value of fisher exact test
+			print c1+"\t"+c2+"\t"+c3+"\t"+c4+"\t"+str(pvalue) 
