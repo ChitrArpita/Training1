@@ -1,3 +1,10 @@
+# for a data like this:
+'''
+6	26	17	17
+5	27	17	17
+11	21	16	18
+'''
+
 import csv
 import sys
 import numpy as np
