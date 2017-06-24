@@ -1,0 +1,20 @@
+# separate exponent and mantissa of a number :
+
+def frexp_10(decimal):
+   import math
+   logdecimal = math.log10(decimal)
+   return 10 ** (logdecimal - int(logdecimal)), int(logdecimal)
+
+import sys
+text_file = open(sys.argv[1], "r")
+target = open(sys.argv[2], 'w')
+lines = text_file.readlines()
+l=len(lines)
+
+for i in range(0,l) :
+	num=frexp_10(float(lines[i]))
+	print num
+	target.write(str(num))
+	target.write("\n")
+
+text_file.close()
