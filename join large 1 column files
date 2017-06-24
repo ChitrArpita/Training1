@@ -1,0 +1,16 @@
+# where M_G* is all files common extension
+
+
+import glob
+from itertools import izip
+
+def extract_meaningful_info(line):
+    return line.rstrip('\n').split('[')[0]
+
+my_files = glob.glob("M_G*.cnv")
+
+with open("master_bicseq.txt", "wb") as outfile:
+    outfile.write("\t".join(my_files) + '\n')
+    for fields in izip(*(open(f) for f in my_files)):
+        fields = [extract_meaningful_info(f) for f in fields]
+        outfile.write('\t'.join(fields) + '\n')
