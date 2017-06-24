@@ -1,0 +1,13 @@
+
+#python Transpose.py test.txt > outputfile
+
+#!/usr/bin/env python
+#to transpose a tab separated data matrix where vry column have a value evn it can be '0'
+# Transpose.py
+
+import fileinput
+m = []
+for line in fileinput.input():
+   m.append(line.strip().split("\t"))
+for row in zip(*m):
+   print "\t".join(row)
