@@ -1,0 +1,25 @@
+#box plot of a file like this:
+
+#A B
+#1  6
+#4  8
+
+import pandas
+import sys
+import csv
+import matplotlib.pyplot as plt
+
+data = pandas.read_csv(sys.argv[1], sep='\t', na_values=' ')
+#gender_data = data.groupby('Gender')
+#data.boxplot(column=['A', 'B'])
+
+from pandas.tools import plotting
+#plt.figure(figsize=(40, 30))
+#plotting.scatter_matrix(data[['A', 'B']])
+
+#plotting.scatter_matrix(data[['A', 'B']])
+
+plt.figure(figsize=(40, 30))
+data.boxplot(column=['A', 'B'])
+
+plt.show()
