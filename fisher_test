@@ -1,0 +1,34 @@
+code to make 2 colume values input for fisher exact test:
+where 32 is the total sample size for the 1st column and 34 is the total sample size for the second column. 
+
+awk '{$3=32-$1; $4=34-$2; print $1"\t"$3"\t"$2"\t"$4}' data.txt>data1.txt
+
+to run :
+./fisher.sh 
+
+modify input output file names with in fisher.sh
+
+# shell script to call the program:
+
+#!/bin/bash/
+while read a b c d;do
+
+python fisher.py $a $b $c $d >> data_fisherpvalue.txt
+
+done < data.txt
+
+
+#python program for for fisher excat test :
+
+import csv
+import sys
+import numpy as np
+import scipy.stats as stats
+
+v1=sys.argv[1]
+v2=sys.argv[2]
+v3=sys.argv[3]
+v4=sys.argv[4]
+oddsratio, pvalue = stats.fisher_exact([[int(v1), int(v2)], [int(v3), int(v4)]])
+print v1+"\t"+v2+"\t"+v3+"\t"+v4+"\t"+str(pvalue)
+ 
