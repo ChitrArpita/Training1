@@ -1,0 +1,16 @@
+#multiplication of a single column file
+
+import sys
+text_file = open(sys.argv[1], "r")
+lines = text_file.readlines()
+#print lines
+#print len(lines)
+l=len(lines)
+#print l
+mul=1
+for i in range(0,l) :
+	#print lines[i]
+	mul=mul*float(lines[i])
+
+text_file.close()
+print mul
