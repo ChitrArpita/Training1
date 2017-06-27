@@ -1,0 +1,26 @@
+ordering bash:
+
+# how to run : ./<script.sh> <text file to extract> <order list> <output file>
+
+echo "import fileinput" >> Transpose.py
+
+echo "m = []" >> Transpose.py
+echo "for line in fileinput.input():" >> Transpose.py
+echo "   m.append(line.strip().split(\"\t\"))" >> Transpose.py
+echo "for row in zip(*m):" >> Transpose.py
+echo  "   print \"\t\".join(row)" >> Transpose.py
+
+chmod +x Transpose.py
+
+python Transpose.py $1 > tmp.txt
+
+while read line;do
+
+awk '{if($1=="'$line'") print $0}' tmp.txt >> tmp1.txt
+
+done < $2
+
+python Transpose.py tmp1.txt > $3
+
+rm -rf tmp*
+rm -f Transpose.py
