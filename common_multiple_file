@@ -1,0 +1,3 @@
+#to find common among multiple files:
+
+python -c 'import sys;print "".join(sorted(set.intersection(*[set(open(a).readlines()) for a in sys.argv[1:]])))'  <file1> <file2> ....
