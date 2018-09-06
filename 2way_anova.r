@@ -1,0 +1,16 @@
+LRR_blood_SM <- read.delim("input_blood.txt", header=FALSE)
+#View(LRR_blood_SM)
+LRR_blood_SM= LRR_blood_SM[-c(1),-c(1:3)]
+vector= c(LRR_blood_SM[1,], LRR_blood_SM[2,], LRR_blood_SM[3,], LRR_blood_SM[4,], LRR_blood_SM[5,])
+vec_1= c(do.call("cbind",vector))
+bt= c(rep('batch1',50), rep('batch2',44), rep('batch3',37), rep('batch4',12), rep('batch5', 35))
+vec_2= c(rep(bt,5))
+vec_2= as.factor(vec_2)
+snp= c(rep("rs4646609_15_58274989",178), rep("kgp14638470_2_21238142",178), rep("kgp11238636_6_138438913",178), rep("rs9979850_21_18731997",178), rep("rs4792404_17_13765225",178))
+vec_3 = as.factor(snp)
+data1= data.frame(vec_1,vec_2,vec_3)
+Model_1 = aov(vec_1~vec_2*vec_3,data=data1)
+summary((Model_1))
+##similar model
+Model_2 = aov(vec_1~vec_2+vec_3+vec2:vec3,data=data1)
+summary((Model_2))
