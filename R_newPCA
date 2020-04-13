@@ -1,0 +1,958 @@
+> library("FactoMineR")
+Warning message:
+package ‘FactoMineR’ was built under R version 3.5.3 
+> library("factoextra")
+Loading required package: ggplot2
+Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa
+Warning message:
+package ‘factoextra’ was built under R version 3.5.3 
+> library(ggplot2)
+> library("factoextra")
+> library("FactoMineR")
+> data(decathlon2)
+> head(decathlon2)
+          X100m Long.jump Shot.put High.jump X400m X110m.hurdle Discus Pole.vault
+SEBRLE    11.04      7.58    14.83      2.07 49.81        14.69  43.75       5.02
+CLAY      10.76      7.40    14.26      1.86 49.37        14.05  50.72       4.92
+BERNARD   11.02      7.23    14.25      1.92 48.93        14.99  40.87       5.32
+YURKOV    11.34      7.09    15.19      2.10 50.42        15.31  46.26       4.72
+ZSIVOCZKY 11.13      7.30    13.48      2.01 48.62        14.17  45.67       4.42
+McMULLEN  10.83      7.31    13.76      2.13 49.91        14.38  44.41       4.42
+          Javeline X1500m Rank Points Competition
+SEBRLE       63.19  291.7    1   8217    Decastar
+CLAY         60.15  301.5    2   8122    Decastar
+BERNARD      62.77  280.1    4   8067    Decastar
+YURKOV       63.44  276.4    5   8036    Decastar
+ZSIVOCZKY    55.37  268.0    7   8004    Decastar
+McMULLEN     56.37  285.1    8   7995    Decastar
+> decathlon2.active <- decathlon2[1:23, 1:10]
+> head(decathlon2.active)
+          X100m Long.jump Shot.put High.jump X400m X110m.hurdle Discus Pole.vault
+SEBRLE    11.04      7.58    14.83      2.07 49.81        14.69  43.75       5.02
+CLAY      10.76      7.40    14.26      1.86 49.37        14.05  50.72       4.92
+BERNARD   11.02      7.23    14.25      1.92 48.93        14.99  40.87       5.32
+YURKOV    11.34      7.09    15.19      2.10 50.42        15.31  46.26       4.72
+ZSIVOCZKY 11.13      7.30    13.48      2.01 48.62        14.17  45.67       4.42
+McMULLEN  10.83      7.31    13.76      2.13 49.91        14.38  44.41       4.42
+          Javeline X1500m
+SEBRLE       63.19  291.7
+CLAY         60.15  301.5
+BERNARD      62.77  280.1
+YURKOV       63.44  276.4
+ZSIVOCZKY    55.37  268.0
+McMULLEN     56.37  285.1
+> head(decathlon2.active[, 1:6], 4)
+        X100m Long.jump Shot.put High.jump X400m X110m.hurdle
+SEBRLE  11.04      7.58    14.83      2.07 49.81        14.69
+CLAY    10.76      7.40    14.26      1.86 49.37        14.05
+BERNARD 11.02      7.23    14.25      1.92 48.93        14.99
+YURKOV  11.34      7.09    15.19      2.10 50.42        15.31
+> res.pca <- PCA(decathlon2.active, graph = TRUE)
+> dat <- scan("data.txt")
+Error in scan("data.txt") : scan() expected 'a real', got 'Clade'
+> dat <- scan("data.txt", header=TRUE)
+Error in scan("data.txt", header = TRUE) : 
+  unused argument (header = TRUE)
+> dat <- read.file.csv("data.txt")
+Error in read.file.csv("data.txt") : 
+  could not find function "read.file.csv"
+> dat <- read.table("data.txt")
+Error in scan(file = file, what = what, sep = sep, quote = quote, dec = dec,  : 
+  line 2 did not have 21 elements
+> dat <- read.table("data.txt",sep="\t")
+> dat
+     V1     V2       V3      V4          V5         V6      V7    V8      V9
+1 Clade Norway Portugal Finland Netherlands Luxembourg Austria Spain Belgium
+2     O   0.05     0.02    0.05        0.05          0    0.11  0.01    0.06
+3   A1a   0.14     0.11    0.11         0.1       0.09    0.05  0.05    0.05
+4   A2a   0.81     0.82    0.82        0.62       0.91    0.79  0.37    0.89
+5     B      0     0.02       0        0.01          0       0  0.57       0
+6    A3      0        0       0        0.01          0    0.05     0       0
+7    A6      0     0.02    0.03        0.21          0       0     0       0
+8    B2      0        0       0           0          0       0     0       0
+9    B4      0        0       0        0.01          0       0     0       0
+      V10    V11         V12   V13     V14     V15    V16      V17      V18
+1 Germany France Switzerland Italy Denmark Hungary Greece Slovakia Slovenia
+2    0.15   0.01           0     0       0       0      0        0        0
+3    0.04   0.02           0     0       0       0      0        0        0
+4     0.7   0.97           1     1       1       1   0.67     0.75        1
+5       0      0           0     0       0       0   0.33        0        0
+6    0.04      0           0     0       0       0      0        0        0
+7    0.04      0           0     0       0       0      0     0.25        0
+8    0.04      0           0     0       0       0      0        0        0
+9       0      0           0     0       0       0      0        0        0
+             V19    V20
+1 Czech Republic Poland
+2              0      1
+3              0      0
+4              1      0
+5              0      0
+6              0      0
+7              0      0
+8              0      0
+9              0      0
+> dat <- read.table("data.txt",sep="\t",header=T)
+> head.dat
+Error: object 'head.dat' not found
+> head(dat)
+  Clade Norway Portugal Finland Netherlands Luxembourg Austria Spain
+1     O   0.05     0.02    0.05        0.05       0.00    0.11  0.01
+2   A1a   0.14     0.11    0.11        0.10       0.09    0.05  0.05
+3   A2a   0.81     0.82    0.82        0.62       0.91    0.79  0.37
+4     B   0.00     0.02    0.00        0.01       0.00    0.00  0.57
+5    A3   0.00     0.00    0.00        0.01       0.00    0.05  0.00
+6    A6   0.00     0.02    0.03        0.21       0.00    0.00  0.00
+  Belgium Germany France Switzerland Italy Denmark Hungary Greece
+1    0.06    0.15   0.01           0     0       0       0   0.00
+2    0.05    0.04   0.02           0     0       0       0   0.00
+3    0.89    0.70   0.97           1     1       1       1   0.67
+4    0.00    0.00   0.00           0     0       0       0   0.33
+5    0.00    0.04   0.00           0     0       0       0   0.00
+6    0.00    0.04   0.00           0     0       0       0   0.00
+  Slovakia Slovenia Czech.Republic Poland
+1     0.00        0              0      1
+2     0.00        0              0      0
+3     0.75        1              1      0
+4     0.00        0              0      0
+5     0.00        0              0      0
+6     0.25        0              0      0
+> data <- dat[,1:19]
+> head(data)
+  Clade Norway Portugal Finland Netherlands Luxembourg Austria Spain
+1     O   0.05     0.02    0.05        0.05       0.00    0.11  0.01
+2   A1a   0.14     0.11    0.11        0.10       0.09    0.05  0.05
+3   A2a   0.81     0.82    0.82        0.62       0.91    0.79  0.37
+4     B   0.00     0.02    0.00        0.01       0.00    0.00  0.57
+5    A3   0.00     0.00    0.00        0.01       0.00    0.05  0.00
+6    A6   0.00     0.02    0.03        0.21       0.00    0.00  0.00
+  Belgium Germany France Switzerland Italy Denmark Hungary Greece
+1    0.06    0.15   0.01           0     0       0       0   0.00
+2    0.05    0.04   0.02           0     0       0       0   0.00
+3    0.89    0.70   0.97           1     1       1       1   0.67
+4    0.00    0.00   0.00           0     0       0       0   0.33
+5    0.00    0.04   0.00           0     0       0       0   0.00
+6    0.00    0.04   0.00           0     0       0       0   0.00
+  Slovakia Slovenia Czech.Republic
+1     0.00        0              0
+2     0.00        0              0
+3     0.75        1              1
+4     0.00        0              0
+5     0.00        0              0
+6     0.25        0              0
+> data <- dat[,2:19]
+> head(data)
+  Norway Portugal Finland Netherlands Luxembourg Austria Spain Belgium
+1   0.05     0.02    0.05        0.05       0.00    0.11  0.01    0.06
+2   0.14     0.11    0.11        0.10       0.09    0.05  0.05    0.05
+3   0.81     0.82    0.82        0.62       0.91    0.79  0.37    0.89
+4   0.00     0.02    0.00        0.01       0.00    0.00  0.57    0.00
+5   0.00     0.00    0.00        0.01       0.00    0.05  0.00    0.00
+6   0.00     0.02    0.03        0.21       0.00    0.00  0.00    0.00
+  Germany France Switzerland Italy Denmark Hungary Greece Slovakia
+1    0.15   0.01           0     0       0       0   0.00     0.00
+2    0.04   0.02           0     0       0       0   0.00     0.00
+3    0.70   0.97           1     1       1       1   0.67     0.75
+4    0.00   0.00           0     0       0       0   0.33     0.00
+5    0.04   0.00           0     0       0       0   0.00     0.00
+6    0.04   0.00           0     0       0       0   0.00     0.25
+  Slovenia Czech.Republic
+1        0              0
+2        0              0
+3        1              1
+4        0              0
+5        0              0
+6        0              0
+> data <- dat[,2:20]
+> head(data)
+  Norway Portugal Finland Netherlands Luxembourg Austria Spain Belgium
+1   0.05     0.02    0.05        0.05       0.00    0.11  0.01    0.06
+2   0.14     0.11    0.11        0.10       0.09    0.05  0.05    0.05
+3   0.81     0.82    0.82        0.62       0.91    0.79  0.37    0.89
+4   0.00     0.02    0.00        0.01       0.00    0.00  0.57    0.00
+5   0.00     0.00    0.00        0.01       0.00    0.05  0.00    0.00
+6   0.00     0.02    0.03        0.21       0.00    0.00  0.00    0.00
+  Germany France Switzerland Italy Denmark Hungary Greece Slovakia
+1    0.15   0.01           0     0       0       0   0.00     0.00
+2    0.04   0.02           0     0       0       0   0.00     0.00
+3    0.70   0.97           1     1       1       1   0.67     0.75
+4    0.00   0.00           0     0       0       0   0.33     0.00
+5    0.04   0.00           0     0       0       0   0.00     0.00
+6    0.04   0.00           0     0       0       0   0.00     0.25
+  Slovenia Czech.Republic Poland
+1        0              0      1
+2        0              0      0
+3        1              1      0
+4        0              0      0
+5        0              0      0
+6        0              0      0
+> clade <- dat[,1]
+> clade
+[1] O   A1a A2a B   A3  A6  B2  B4 
+Levels: A1a A2a A3 A6 B B2 B4 O
+> pca <- prcomp(data, center = TRUE,scale. = TRUE)
+> print(pca)
+Standard deviations (1, .., p=8):
+[1] 4.088068e+00 1.098470e+00 9.220227e-01 4.079863e-01 2.434263e-01
+[6] 6.055859e-02 3.947214e-02 4.297305e-16
+
+Rotation (n x k) = (19 x 8):
+                       PC1         PC2          PC3         PC4
+Norway          0.24177919  0.05491530 -0.023892189 -0.15935219
+Portugal        0.24350677  0.01271097 -0.032564330 -0.08360921
+Finland         0.24316391  0.05606259 -0.029729385 -0.05674210
+Netherlands     0.23299104  0.06428112 -0.138688132  0.62290636
+Luxembourg      0.24370028  0.01219171 -0.048646706 -0.13030331
+Austria         0.24182254  0.11285983  0.039779600 -0.14501801
+Spain           0.11679461 -0.60117002  0.624933073  0.12469262
+Belgium         0.24383366  0.06080142  0.007383941 -0.10254767
+Germany         0.23954453  0.17021673  0.059134084 -0.03798890
+France          0.24423490  0.02073812 -0.023276913 -0.09155819
+Switzerland     0.24411984  0.01381021 -0.025405818 -0.08273291
+Italy           0.24411984  0.01381021 -0.025405818 -0.08273291
+Denmark         0.24411984  0.01381021 -0.025405818 -0.08273291
+Hungary         0.24411984  0.01381021 -0.025405818 -0.08273291
+Greece          0.21948183 -0.30429144  0.307842224  0.02862796
+Slovakia        0.23226669  0.01962753 -0.151465234  0.66821228
+Slovenia        0.24411984  0.01381021 -0.025405818 -0.08273291
+Czech.Republic  0.24411984  0.01381021 -0.025405818 -0.08273291
+Poland         -0.03392104  0.69859346  0.676820335  0.11869820
+                        PC5         PC6          PC7         PC8
+Norway          0.497394414  0.08028271 -0.085234063 -0.46466158
+Portugal        0.337436744  0.07494060 -0.067252749 -0.17963780
+Finland         0.336560412  0.08088880 -0.069561424  0.85162489
+Netherlands     0.338723978 -0.04775488  0.170254933 -0.09236883
+Luxembourg      0.201641069  0.09184539 -0.031465657  0.05813006
+Austria        -0.014107597 -0.72112506  0.600331636  0.02369445
+Spain           0.149523365 -0.07105434 -0.038701092 -0.01801204
+Belgium         0.032953933  0.11741450  0.005887758  0.01077100
+Germany        -0.121572891 -0.54498533 -0.752756622 -0.02578999
+France         -0.106561351  0.11736601  0.029406708 -0.08222844
+Switzerland    -0.186604358  0.12145628  0.044367456 -0.02544444
+Italy          -0.186604358  0.12145628  0.044367456 -0.02544444
+Denmark        -0.186604358  0.12145628  0.044367456 -0.02544444
+Hungary        -0.186604358  0.12145628  0.044367456 -0.02544444
+Greece         -0.205023223  0.05354971  0.039819032  0.04467672
+Slovakia       -0.263241338  0.01515082 -0.080046413  0.01495173
+Slovenia       -0.186604358  0.12145628  0.044367456 -0.02544444
+Czech.Republic -0.186604358  0.12145628  0.044367456 -0.02544444
+Poland         -0.005841324  0.17155925  0.064459216 -0.01054632
+> plot(pca, type = "l")
+Error in plot.new() : figure margins too large
+> summary(pca)
+Importance of components:
+                          PC1     PC2     PC3     PC4     PC5     PC6
+Standard deviation     4.0881 1.09847 0.92202 0.40799 0.24343 0.06056
+Proportion of Variance 0.8796 0.06351 0.04474 0.00876 0.00312 0.00019
+Cumulative Proportion  0.8796 0.94310 0.98785 0.99661 0.99972 0.99992
+                           PC7       PC8
+Standard deviation     0.03947 4.297e-16
+Proportion of Variance 0.00008 0.000e+00
+Cumulative Proportion  1.00000 1.000e+00
+> 
+> libeary("ggplot2")
+Error in libeary("ggplot2") : could not find function "libeary"
+> library("ggplot2")
+> ggplot(pca$x,aes(x=PC1,y=PC2,col=clade))+
++ geom_point(size=3,alpha=0.5)
+Error: `data` must be a data frame, or other object coercible by `fortify()`, not a numeric vector
+> ggplot(pca$x,aes(x=PC1,y=PC2,col=clade))+
++ geom_point(size=3,alpha=0.5) +
++ 
++ 
++ 
++ 
++ bbf
+Error: `data` must be a data frame, or other object coercible by `fortify()`, not a numeric vector
+> dat <- read.table("data.txt",sep="\t",header=T)
+> data <- dat[,2:9}
+Error: unexpected '}' in "data <- dat[,2:9}"
+> data <- dat[,2:9]
+> head(data)
+     O  A1a  A2a    B   A3   A6 B2   B4
+1 0.05 0.14 0.81 0.00 0.00 0.00  0 0.00
+2 0.02 0.11 0.82 0.02 0.00 0.02  0 0.00
+3 0.05 0.11 0.82 0.00 0.00 0.03  0 0.00
+4 0.05 0.10 0.62 0.01 0.01 0.21  0 0.01
+5 0.00 0.09 0.91 0.00 0.00 0.00  0 0.00
+6 0.11 0.05 0.79 0.00 0.05 0.00  0 0.00
+> coun <- dat[,1]
+> coun
+ [1] Norway         Portugal       Finland        Netherlands    Luxembourg     Austria       
+ [7] Spain          Belgium        Germany        France         Switzerland    Italy         
+[13] Denmark        Hungary        Greece         Slovakia       Slovenia       Czech Republic
+[19] Poland        
+19 Levels: Austria Belgium Czech Republic Denmark Finland France Germany Greece Hungary ... Switzerland
+> pca <- prcomp(data, center = TRUE,scale. = TRUE) 
+> print(pca)
+Standard deviations (1, .., p=8):
+[1] 1.394458604 1.325444745 1.254836724 1.033585373 0.946976355 0.659406261 0.569307265 0.008712432
+
+Rotation (n x k) = (8 x 8):
+            PC1         PC2         PC3         PC4         PC5         PC6         PC7          PC8
+O    0.47392544 -0.41846637  0.04568915 -0.44537189  0.20824608 -0.02155283  0.06337490 0.5932871355
+A1a  0.15220538  0.33865765  0.08330564  0.36315675  0.80026546  0.22327494 -0.13215955 0.1248167001
+A2a -0.60388503  0.32819018 -0.23640159 -0.07916239 -0.03023531 -0.06819401  0.11230336 0.6687937203
+B    0.07683725 -0.28888911  0.30079051  0.75723597 -0.30835023 -0.05920898  0.01469713 0.3846508865
+A3   0.31046641  0.11278616 -0.59163279  0.17736874 -0.02512953 -0.60439919 -0.37692622 0.0373846080
+A6   0.30540148  0.49316800  0.20240199 -0.15592488 -0.42794298  0.35048992 -0.50674579 0.1883253824
+B2   0.27469735  0.02414038 -0.61797580  0.18371766 -0.16945542  0.55226043  0.41746844 0.0180477972
+B4   0.34136347  0.51236025  0.26780968 -0.02374115 -0.08793690 -0.38522007  0.62653400 0.0001996755
+> plot(pca, type = "l")
+> summary(pca)
+Importance of components:
+                          PC1    PC2    PC3    PC4    PC5     PC6     PC7      PC8
+Standard deviation     1.3945 1.3254 1.2548 1.0336 0.9470 0.65941 0.56931 0.008712
+Proportion of Variance 0.2431 0.2196 0.1968 0.1335 0.1121 0.05435 0.04051 0.000010
+Cumulative Proportion  0.2431 0.4627 0.6595 0.7930 0.9051 0.95948 0.99999 1.000000
+> plot(pca$x, col = coun )
+> ggplot(pca$x,aes(x=PC1,y=PC2,col= coun))+
++ geom_point(size=3,alpha=0.5)+
++ scale_color_gradient2(midpoint=mid, low="blue", mid="white",
++                       high="red", space ="Lab" )+
++ scale_color_gradient2(midpoint=mid, low="blue", mid="white",
++ scale_color_gradient2(midpoint=mid, low="blue", mid="black",high="red", space ="Lab" )
++ theme_classic()
+Error: unexpected symbol in:
+"scale_color_gradient2(midpoint=mid, low="blue", mid="black",high="red", space ="Lab" )
+theme_classic"
+> ggplot(pca$x,aes(x=PC1,y=PC2,col= coun))+
++ geom_point(size=3,alpha=0.5)+
++ scale_color_gradient2(midpoint=mid, low="blue", mid="black", high="red", space ="Lab")+
++ theme_classic()
+Error: `data` must be a data frame, or other object coercible by `fortify()`, not a numeric vector
+> plot(pca$x, col = coun )
+> install.packages('ggfortify')
+Installing package into ‘C:/Users/NKB/Documents/R/win-library/3.5’
+(as ‘lib’ is unspecified)
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.5/ggfortify_0.4.9.zip'
+Content type 'application/zip' length 2379274 bytes (2.3 MB)
+downloaded 2.3 MB
+
+package ‘ggfortify’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\NKB\AppData\Local\Temp\RtmpGkE9qO\downloaded_packages
+> 
+> library(ggfortify)
+Warning message:
+package ‘ggfortify’ was built under R version 3.5.3 
+> 
+> pca <- prcomp(data, center = TRUE,scale. = TRUE) 
+> summary(pca)
+Importance of components:
+                          PC1    PC2    PC3    PC4    PC5     PC6     PC7      PC8
+Standard deviation     1.3945 1.3254 1.2548 1.0336 0.9470 0.65941 0.56931 0.008712
+Proportion of Variance 0.2431 0.2196 0.1968 0.1335 0.1121 0.05435 0.04051 0.000010
+Cumulative Proportion  0.2431 0.4627 0.6595 0.7930 0.9051 0.95948 0.99999 1.000000
+> print(pca)
+Standard deviations (1, .., p=8):
+[1] 1.394458604 1.325444745 1.254836724 1.033585373 0.946976355 0.659406261 0.569307265 0.008712432
+
+Rotation (n x k) = (8 x 8):
+            PC1         PC2         PC3         PC4         PC5         PC6         PC7          PC8
+O    0.47392544 -0.41846637  0.04568915 -0.44537189  0.20824608 -0.02155283  0.06337490 0.5932871355
+A1a  0.15220538  0.33865765  0.08330564  0.36315675  0.80026546  0.22327494 -0.13215955 0.1248167001
+A2a -0.60388503  0.32819018 -0.23640159 -0.07916239 -0.03023531 -0.06819401  0.11230336 0.6687937203
+B    0.07683725 -0.28888911  0.30079051  0.75723597 -0.30835023 -0.05920898  0.01469713 0.3846508865
+A3   0.31046641  0.11278616 -0.59163279  0.17736874 -0.02512953 -0.60439919 -0.37692622 0.0373846080
+A6   0.30540148  0.49316800  0.20240199 -0.15592488 -0.42794298  0.35048992 -0.50674579 0.1883253824
+B2   0.27469735  0.02414038 -0.61797580  0.18371766 -0.16945542  0.55226043  0.41746844 0.0180477972
+B4   0.34136347  0.51236025  0.26780968 -0.02374115 -0.08793690 -0.38522007  0.62653400 0.0001996755
+> plot(pca$x, col = coun )
+> autoplot(prcomp(data, center = TRUE,scale. = TRUE),data=data,colour='coun',loadings = TRUE)
+Error in grDevices::col2rgb(colour, TRUE) : invalid color name 'coun'
+> plot(pca$x, col = coun )
+> text(y1,coun,col=black)
+Error in text(y1, coun, col = black) : object 'y1' not found
+> text(coun,col=black)
+Error in text.default(coun, col = black) : object 'black' not found
+> text(coun,col='black')
+> plot(pca$x, col = coun )
+> text(coun,col='black')
+> text(pca$x,coun,col='black')
+> text(pca,coun,col='black')
+Error in xy.coords(x, y, recycle = TRUE, setLab = FALSE) : 
+  (list) object cannot be coerced to type 'double'
+> 
+> autoplot(prcomp(data),data=data,colour=coun)
+Error in grDevices::col2rgb(colour, TRUE) : invalid color name 'Norway'
+In addition: Warning message:
+In if (value %in% columns) { :
+  the condition has length > 1 and only the first element will be used
+> ggplot(pca$x,aes(x=PC1,y=PC2,col=Species))+
++ geom_point(size=3,alpha=0.5)+
++ labels=rownames(data)+
++ theme_classic()
+Error in ggplot(pca$x, aes(x = PC1, y = PC2, col = Species)) + geom_point(size = 3,  : 
+  could not find function "+<-"
+> ggplot(pca$x,aes(x=PC1,y=PC2,col='coun'))+
++ geom_point(size=3,alpha=0.5)+
++ labels=rownames(data)+
++ theme_classic()
+Error in ggplot(pca$x, aes(x = PC1, y = PC2, col = "coun")) + geom_point(size = 3,  : 
+  could not find function "+<-"
+> ggplot(pca$x,aes(x=PC1,y=PC2,col=coun))+
++ geom_point(size=3,alpha=0.5)+
++ labels=rownames(data)+
++ theme_classic()
+Error in ggplot(pca$x, aes(x = PC1, y = PC2, col = coun)) + geom_point(size = 3,  : 
+  could not find function "+<-"
+> ggplot(pca$x,aes(x=PC1,y=PC2,col=coun))+
++ labels=rownames(data)+
++ theme_classic()
+Error in ggplot(pca$x, aes(x = PC1, y = PC2, col = coun)) + labels = rownames(data) +  : 
+  could not find function "+<-"
+> library(ggbiplot)
+Error in library(ggbiplot) : there is no package called ‘ggbiplot’
+> 
+> plot(pca$x, col = coun )
+> data(decathlon)
+> head.data(decathlon)
+Error in head.data(decathlon) : could not find function "head.data"
+> head(data(decathlon))
+[1] "decathlon"
+> d <- data("decathlon")
+> d
+[1] "decathlon"
+> data("decathlon")
+> head(decathlon)
+         100m Long.jump Shot.put High.jump  400m 110m.hurdle Discus Pole.vault Javeline 1500m Rank
+SEBRLE  11.04      7.58    14.83      2.07 49.81       14.69  43.75       5.02    63.19 291.7    1
+CLAY    10.76      7.40    14.26      1.86 49.37       14.05  50.72       4.92    60.15 301.5    2
+KARPOV  11.02      7.30    14.77      2.04 48.37       14.09  48.95       4.92    50.31 300.2    3
+BERNARD 11.02      7.23    14.25      1.92 48.93       14.99  40.87       5.32    62.77 280.1    4
+YURKOV  11.34      7.09    15.19      2.10 50.42       15.31  46.26       4.72    63.44 276.4    5
+WARNERS 11.11      7.60    14.31      1.98 48.68       14.23  41.10       4.92    51.77 278.1    6
+        Points Competition
+SEBRLE    8217    Decastar
+CLAY      8122    Decastar
+KARPOV    8099    Decastar
+BERNARD   8067    Decastar
+YURKOV    8036    Decastar
+WARNERS   8030    Decastar
+> plot(pca$x, col = coun )
+> plot(pca$x, col = coun ,legend=list(x="bottom") )
+Warning messages:
+1: In plot.window(...) : "legend" is not a graphical parameter
+2: In plot.xy(xy, type, ...) : "legend" is not a graphical parameter
+3: In axis(side = side, at = at, labels = labels, ...) :
+  "legend" is not a graphical parameter
+4: In axis(side = side, at = at, labels = labels, ...) :
+  "legend" is not a graphical parameter
+5: In box(...) : "legend" is not a graphical parameter
+6: In title(...) : "legend" is not a graphical parameter
+> jpeg("test.jpeg")
+There were 12 warnings (use warnings() to see them)
+> plot(pca$x, col = coun ,legend=list(x="bottom") )
+Warning messages:
+1: In plot.window(...) : "legend" is not a graphical parameter
+2: In plot.xy(xy, type, ...) : "legend" is not a graphical parameter
+3: In axis(side = side, at = at, labels = labels, ...) :
+  "legend" is not a graphical parameter
+4: In axis(side = side, at = at, labels = labels, ...) :
+  "legend" is not a graphical parameter
+5: In box(...) : "legend" is not a graphical parameter
+6: In title(...) : "legend" is not a graphical parameter
+> dev.off()
+RStudioGD 
+        2 
+> jpeg("test.jpeg")
+> plot(pca$x, col = coun
++ 
++ 
++ 
++ gjh
+Error: unexpected symbol in:
+"
+gjh"
+> ggplot(pca$x,aes(x=PC1,y=PC2,col=Species))+
++     geom_point(size=3,alpha=0.5)+
++     scale_color_manual(values = c(lightgoldenrod4", "mediumslateblue", "mediumspringgreen", "mediumturquoise", "mediumvioletred", "midnightblue", "red", "green", "blue", "black", "brown", "pink", "yellow", "yellow3", "yellow4", "yelowgreen", "turquoise4", "mediumblue", "lightgoldenrod4"))+ 
+Error: unexpected string constant in:
+"    geom_point(size=3,alpha=0.5)+
+    scale_color_manual(values = c(lightgoldenrod4", ""
+>                                   theme_classic()
+List of 60
+ $ line                 :List of 6
+  ..$ colour       : chr "black"
+  ..$ size         : num 0.5
+  ..$ linetype     : num 1
+  ..$ lineend      : chr "butt"
+  ..$ arrow        : logi FALSE
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, "class")= chr [1:2] "element_line" "element"
+ $ rect                 :List of 5
+  ..$ fill         : chr "white"
+  ..$ colour       : chr "black"
+  ..$ size         : num 0.5
+  ..$ linetype     : num 1
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, "class")= chr [1:2] "element_rect" "element"
+ $ text                 :List of 11
+  ..$ family       : chr ""
+  ..$ face         : chr "plain"
+  ..$ colour       : chr "black"
+  ..$ size         : num 11
+  ..$ hjust        : num 0.5
+  ..$ vjust        : num 0.5
+  ..$ angle        : num 0
+  ..$ lineheight   : num 0.9
+  ..$ margin       : 'margin' num [1:4] 0pt 0pt 0pt 0pt
+  .. ..- attr(*, "valid.unit")= int 8
+  .. ..- attr(*, "unit")= chr "pt"
+  ..$ debug        : logi FALSE
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, "class")= chr [1:2] "element_text" "element"
+ $ axis.title.x         :List of 11
+  ..$ family       : NULL
+  ..$ face         : NULL
+  ..$ colour       : NULL
+  ..$ size         : NULL
+  ..$ hjust        : NULL
+  ..$ vjust        : num 1
+  ..$ angle        : NULL
+  ..$ lineheight   : NULL
+  ..$ margin       : 'margin' num [1:4] 2.75pt 0pt 0pt 0pt
+  .. ..- attr(*, "valid.unit")= int 8
+  .. ..- attr(*, "unit")= chr "pt"
+  ..$ debug        : NULL
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, "class")= chr [1:2] "element_text" "element"
+ $ axis.title.x.top     :List of 11
+  ..$ family       : NULL
+  ..$ face         : NULL
+  ..$ colour       : NULL
+  ..$ size         : NULL
+  ..$ hjust        : NULL
+  ..$ vjust        : num 0
+  ..$ angle        : NULL
+  ..$ lineheight   : NULL
+  ..$ margin       : 'margin' num [1:4] 0pt 0pt 2.75pt 0pt
+  .. ..- attr(*, "valid.unit")= int 8
+  .. ..- attr(*, "unit")= chr "pt"
+  ..$ debug        : NULL
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, "class")= chr [1:2] "element_text" "element"
+ $ axis.title.y         :List of 11
+  ..$ family       : NULL
+  ..$ face         : NULL
+  ..$ colour       : NULL
+  ..$ size         : NULL
+  ..$ hjust        : NULL
+  ..$ vjust        : num 1
+  ..$ angle        : num 90
+  ..$ lineheight   : NULL
+  ..$ margin       : 'margin' num [1:4] 0pt 2.75pt 0pt 0pt
+  .. ..- attr(*, "valid.unit")= int 8
+  .. ..- attr(*, "unit")= chr "pt"
+  ..$ debug        : NULL
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, "class")= chr [1:2] "element_text" "element"
+ $ axis.title.y.right   :List of 11
+  ..$ family       : NULL
+  ..$ face         : NULL
+  ..$ colour       : NULL
+  ..$ size         : NULL
+  ..$ hjust        : NULL
+  ..$ vjust        : num 0
+  ..$ angle        : num -90
+  ..$ lineheight   : NULL
+  ..$ margin       : 'margin' num [1:4] 0pt 0pt 0pt 2.75pt
+  .. ..- attr(*, "valid.unit")= int 8
+  .. ..- attr(*, "unit")= chr "pt"
+  ..$ debug        : NULL
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, "class")= chr [1:2] "element_text" "element"
+ $ axis.text            :List of 11
+  ..$ family       : NULL
+  ..$ face         : NULL
+  ..$ colour       : chr "grey30"
+  ..$ size         : 'rel' num 0.8
+  ..$ hjust        : NULL
+  ..$ vjust        : NULL
+  ..$ angle        : NULL
+  ..$ lineheight   : NULL
+  ..$ margin       : NULL
+  ..$ debug        : NULL
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, "class")= chr [1:2] "element_text" "element"
+ $ axis.text.x          :List of 11
+  ..$ family       : NULL
+  ..$ face         : NULL
+  ..$ colour       : NULL
+  ..$ size         : NULL
+  ..$ hjust        : NULL
+  ..$ vjust        : num 1
+  ..$ angle        : NULL
+  ..$ lineheight   : NULL
+  ..$ margin       : 'margin' num [1:4] 2.2pt 0pt 0pt 0pt
+  .. ..- attr(*, "valid.unit")= int 8
+  .. ..- attr(*, "unit")= chr "pt"
+  ..$ debug        : NULL
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, "class")= chr [1:2] "element_text" "element"
+ $ axis.text.x.top      :List of 11
+  ..$ family       : NULL
+  ..$ face         : NULL
+  ..$ colour       : NULL
+  ..$ size         : NULL
+  ..$ hjust        : NULL
+  ..$ vjust        : num 0
+  ..$ angle        : NULL
+  ..$ lineheight   : NULL
+  ..$ margin       : 'margin' num [1:4] 0pt 0pt 2.2pt 0pt
+  .. ..- attr(*, "valid.unit")= int 8
+  .. ..- attr(*, "unit")= chr "pt"
+  ..$ debug        : NULL
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, "class")= chr [1:2] "element_text" "element"
+ $ axis.text.y          :List of 11
+  ..$ family       : NULL
+  ..$ face         : NULL
+  ..$ colour       : NULL
+  ..$ size         : NULL
+  ..$ hjust        : num 1
+  ..$ vjust        : NULL
+  ..$ angle        : NULL
+  ..$ lineheight   : NULL
+  ..$ margin       : 'margin' num [1:4] 0pt 2.2pt 0pt 0pt
+  .. ..- attr(*, "valid.unit")= int 8
+  .. ..- attr(*, "unit")= chr "pt"
+  ..$ debug        : NULL
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, "class")= chr [1:2] "element_text" "element"
+ $ axis.text.y.right    :List of 11
+  ..$ family       : NULL
+  ..$ face         : NULL
+  ..$ colour       : NULL
+  ..$ size         : NULL
+  ..$ hjust        : num 0
+  ..$ vjust        : NULL
+  ..$ angle        : NULL
+  ..$ lineheight   : NULL
+  ..$ margin       : 'margin' num [1:4] 0pt 0pt 0pt 2.2pt
+  .. ..- attr(*, "valid.unit")= int 8
+  .. ..- attr(*, "unit")= chr "pt"
+  ..$ debug        : NULL
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, "class")= chr [1:2] "element_text" "element"
+ $ axis.ticks           :List of 6
+  ..$ colour       : chr "grey20"
+  ..$ size         : NULL
+  ..$ linetype     : NULL
+  ..$ lineend      : NULL
+  ..$ arrow        : logi FALSE
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, "class")= chr [1:2] "element_line" "element"
+ $ axis.ticks.length    : 'unit' num 2.75pt
+  ..- attr(*, "valid.unit")= int 8
+  ..- attr(*, "unit")= chr "pt"
+ $ axis.line            :List of 6
+  ..$ colour       : chr "black"
+  ..$ size         : 'rel' num 1
+  ..$ linetype     : NULL
+  ..$ lineend      : NULL
+  ..$ arrow        : logi FALSE
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, "class")= chr [1:2] "element_line" "element"
+ $ axis.line.x          : NULL
+ $ axis.line.y          : NULL
+ $ legend.background    :List of 5
+  ..$ fill         : NULL
+  ..$ colour       : logi NA
+  ..$ size         : NULL
+  ..$ linetype     : NULL
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, "class")= chr [1:2] "element_rect" "element"
+ $ legend.margin        : 'margin' num [1:4] 5.5pt 5.5pt 5.5pt 5.5pt
+  ..- attr(*, "valid.unit")= int 8
+  ..- attr(*, "unit")= chr "pt"
+ $ legend.spacing       : 'unit' num 11pt
+  ..- attr(*, "valid.unit")= int 8
+  ..- attr(*, "unit")= chr "pt"
+ $ legend.spacing.x     : NULL
+ $ legend.spacing.y     : NULL
+ $ legend.key           : list()
+  ..- attr(*, "class")= chr [1:2] "element_blank" "element"
+ $ legend.key.size      : 'unit' num 1.2lines
+  ..- attr(*, "valid.unit")= int 3
+  ..- attr(*, "unit")= chr "lines"
+ $ legend.key.height    : NULL
+ $ legend.key.width     : NULL
+ $ legend.text          :List of 11
+  ..$ family       : NULL
+  ..$ face         : NULL
+  ..$ colour       : NULL
+  ..$ size         : 'rel' num 0.8
+  ..$ hjust        : NULL
+  ..$ vjust        : NULL
+  ..$ angle        : NULL
+  ..$ lineheight   : NULL
+  ..$ margin       : NULL
+  ..$ debug        : NULL
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, "class")= chr [1:2] "element_text" "element"
+ $ legend.text.align    : NULL
+ $ legend.title         :List of 11
+  ..$ family       : NULL
+  ..$ face         : NULL
+  ..$ colour       : NULL
+  ..$ size         : NULL
+  ..$ hjust        : num 0
+  ..$ vjust        : NULL
+  ..$ angle        : NULL
+  ..$ lineheight   : NULL
+  ..$ margin       : NULL
+  ..$ debug        : NULL
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, "class")= chr [1:2] "element_text" "element"
+ $ legend.title.align   : NULL
+ $ legend.position      : chr "right"
+ $ legend.direction     : NULL
+ $ legend.justification : chr "center"
+ $ legend.box           : NULL
+ $ legend.box.margin    : 'margin' num [1:4] 0cm 0cm 0cm 0cm
+  ..- attr(*, "valid.unit")= int 1
+  ..- attr(*, "unit")= chr "cm"
+ $ legend.box.background: list()
+  ..- attr(*, "class")= chr [1:2] "element_blank" "element"
+ $ legend.box.spacing   : 'unit' num 11pt
+  ..- attr(*, "valid.unit")= int 8
+  ..- attr(*, "unit")= chr "pt"
+ $ panel.background     :List of 5
+  ..$ fill         : chr "white"
+  ..$ colour       : logi NA
+  ..$ size         : NULL
+  ..$ linetype     : NULL
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, "class")= chr [1:2] "element_rect" "element"
+ $ panel.border         : list()
+  ..- attr(*, "class")= chr [1:2] "element_blank" "element"
+ $ panel.spacing        : 'unit' num 5.5pt
+  ..- attr(*, "valid.unit")= int 8
+  ..- attr(*, "unit")= chr "pt"
+ $ panel.spacing.x      : NULL
+ $ panel.spacing.y      : NULL
+ $ panel.grid           :List of 6
+  ..$ colour       : chr "grey92"
+  ..$ size         : NULL
+  ..$ linetype     : NULL
+  ..$ lineend      : NULL
+  ..$ arrow        : logi FALSE
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, "class")= chr [1:2] "element_line" "element"
+ $ panel.grid.minor     : list()
+  ..- attr(*, "class")= chr [1:2] "element_blank" "element"
+ $ panel.ontop          : logi FALSE
+ $ plot.background      :List of 5
+  ..$ fill         : NULL
+  ..$ colour       : chr "white"
+  ..$ size         : NULL
+  ..$ linetype     : NULL
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, "class")= chr [1:2] "element_rect" "element"
+ $ plot.title           :List of 11
+  ..$ family       : NULL
+  ..$ face         : NULL
+  ..$ colour       : NULL
+  ..$ size         : 'rel' num 1.2
+  ..$ hjust        : num 0
+  ..$ vjust        : num 1
+  ..$ angle        : NULL
+  ..$ lineheight   : NULL
+  ..$ margin       : 'margin' num [1:4] 0pt 0pt 5.5pt 0pt
+  .. ..- attr(*, "valid.unit")= int 8
+  .. ..- attr(*, "unit")= chr "pt"
+  ..$ debug        : NULL
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, "class")= chr [1:2] "element_text" "element"
+ $ plot.subtitle        :List of 11
+  ..$ family       : NULL
+  ..$ face         : NULL
+  ..$ colour       : NULL
+  ..$ size         : NULL
+  ..$ hjust        : num 0
+  ..$ vjust        : num 1
+  ..$ angle        : NULL
+  ..$ lineheight   : NULL
+  ..$ margin       : 'margin' num [1:4] 0pt 0pt 5.5pt 0pt
+  .. ..- attr(*, "valid.unit")= int 8
+  .. ..- attr(*, "unit")= chr "pt"
+  ..$ debug        : NULL
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, "class")= chr [1:2] "element_text" "element"
+ $ plot.caption         :List of 11
+  ..$ family       : NULL
+  ..$ face         : NULL
+  ..$ colour       : NULL
+  ..$ size         : 'rel' num 0.8
+  ..$ hjust        : num 1
+  ..$ vjust        : num 1
+  ..$ angle        : NULL
+  ..$ lineheight   : NULL
+  ..$ margin       : 'margin' num [1:4] 5.5pt 0pt 0pt 0pt
+  .. ..- attr(*, "valid.unit")= int 8
+  .. ..- attr(*, "unit")= chr "pt"
+  ..$ debug        : NULL
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, "class")= chr [1:2] "element_text" "element"
+ $ plot.tag             :List of 11
+  ..$ family       : NULL
+  ..$ face         : NULL
+  ..$ colour       : NULL
+  ..$ size         : 'rel' num 1.2
+  ..$ hjust        : num 0.5
+  ..$ vjust        : num 0.5
+  ..$ angle        : NULL
+  ..$ lineheight   : NULL
+  ..$ margin       : NULL
+  ..$ debug        : NULL
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, "class")= chr [1:2] "element_text" "element"
+ $ plot.tag.position    : chr "topleft"
+ $ plot.margin          : 'margin' num [1:4] 5.5pt 5.5pt 5.5pt 5.5pt
+  ..- attr(*, "valid.unit")= int 8
+  ..- attr(*, "unit")= chr "pt"
+ $ strip.background     :List of 5
+  ..$ fill         : chr "white"
+  ..$ colour       : chr "black"
+  ..$ size         : 'rel' num 2
+  ..$ linetype     : NULL
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, "class")= chr [1:2] "element_rect" "element"
+ $ strip.placement      : chr "inside"
+ $ strip.text           :List of 11
+  ..$ family       : NULL
+  ..$ face         : NULL
+  ..$ colour       : chr "grey10"
+  ..$ size         : 'rel' num 0.8
+  ..$ hjust        : NULL
+  ..$ vjust        : NULL
+  ..$ angle        : NULL
+  ..$ lineheight   : NULL
+  ..$ margin       : 'margin' num [1:4] 4.4pt 4.4pt 4.4pt 4.4pt
+  .. ..- attr(*, "valid.unit")= int 8
+  .. ..- attr(*, "unit")= chr "pt"
+  ..$ debug        : NULL
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, "class")= chr [1:2] "element_text" "element"
+ $ strip.text.x         : NULL
+ $ strip.text.y         :List of 11
+  ..$ family       : NULL
+  ..$ face         : NULL
+  ..$ colour       : NULL
+  ..$ size         : NULL
+  ..$ hjust        : NULL
+  ..$ vjust        : NULL
+  ..$ angle        : num -90
+  ..$ lineheight   : NULL
+  ..$ margin       : NULL
+  ..$ debug        : NULL
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, "class")= chr [1:2] "element_text" "element"
+ $ strip.switch.pad.grid: 'unit' num 2.75pt
+  ..- attr(*, "valid.unit")= int 8
+  ..- attr(*, "unit")= chr "pt"
+ $ strip.switch.pad.wrap: 'unit' num 2.75pt
+  ..- attr(*, "valid.unit")= int 8
+  ..- attr(*, "unit")= chr "pt"
+ $ panel.grid.major     : list()
+  ..- attr(*, "class")= chr [1:2] "element_blank" "element"
+ - attr(*, "class")= chr [1:2] "theme" "gg"
+ - attr(*, "complete")= logi TRUE
+ - attr(*, "validate")= logi TRUE
+> library(ggfortify)
+> pca <- prcomp(data, center = TRUE,scale. = TRUE) 
+> summary(PCA)
+Error in object[[i]] : object of type 'closure' is not subsettable
+> summary(pca)
+Importance of components:
+                          PC1    PC2    PC3    PC4    PC5     PC6     PC7      PC8
+Standard deviation     1.3945 1.3254 1.2548 1.0336 0.9470 0.65941 0.56931 0.008712
+Proportion of Variance 0.2431 0.2196 0.1968 0.1335 0.1121 0.05435 0.04051 0.000010
+Cumulative Proportion  0.2431 0.4627 0.6595 0.7930 0.9051 0.95948 0.99999 1.000000
+> print(pca)
+Standard deviations (1, .., p=8):
+[1] 1.394458604 1.325444745 1.254836724 1.033585373 0.946976355 0.659406261 0.569307265 0.008712432
+
+Rotation (n x k) = (8 x 8):
+            PC1         PC2         PC3         PC4         PC5         PC6         PC7          PC8
+O    0.47392544 -0.41846637  0.04568915 -0.44537189  0.20824608 -0.02155283  0.06337490 0.5932871355
+A1a  0.15220538  0.33865765  0.08330564  0.36315675  0.80026546  0.22327494 -0.13215955 0.1248167001
+A2a -0.60388503  0.32819018 -0.23640159 -0.07916239 -0.03023531 -0.06819401  0.11230336 0.6687937203
+B    0.07683725 -0.28888911  0.30079051  0.75723597 -0.30835023 -0.05920898  0.01469713 0.3846508865
+A3   0.31046641  0.11278616 -0.59163279  0.17736874 -0.02512953 -0.60439919 -0.37692622 0.0373846080
+A6   0.30540148  0.49316800  0.20240199 -0.15592488 -0.42794298  0.35048992 -0.50674579 0.1883253824
+B2   0.27469735  0.02414038 -0.61797580  0.18371766 -0.16945542  0.55226043  0.41746844 0.0180477972
+B4   0.34136347  0.51236025  0.26780968 -0.02374115 -0.08793690 -0.38522007  0.62653400 0.0001996755
+> ggplot(pca$x,aes(x=PC1,y=PC2,col=Species))+
++     geom_point(size=3,alpha=0.5)+
++     scale_color_manual(values = c("lightgoldenrod4", "mediumslateblue", "mediumspringgreen", "mediumturquoise", "mediumvioletred", "midnightblue", "red", "green", "blue", "black", "brown", "pink", "yellow", "yellow3", "yellow4", "yelowgreen", "turquoise4", "mediumblue", "lightgoldenrod4"))+ 
++     theme_classic()
+Error in FUN(X[[i]], ...) : object 'Species' not found
+> ggplot(pca$x,aes(x=PC1,y=PC2,col=coun))+
++     geom_point(size=3,alpha=0.5)+
++     scale_color_manual(values = c("lightgoldenrod4", "mediumslateblue", "mediumspringgreen", "mediumturquoise", "mediumvioletred", "midnightblue", "red", "green", "blue", "black", "brown", "pink", "yellow", "yellow3", "yellow4", "yelowgreen", "turquoise4", "mediumblue", "lightgoldenrod4"))+ 
++     theme_classic()
+Error in grDevices::col2rgb(colour, TRUE) : 
+  invalid color name 'yelowgreen'
+> ggplot(pca$x,aes(x=PC1,y=PC2,col=coun))+
++     geom_point(size=3,alpha=0.5)+
++     scale_color_manual(values = c("lightgoldenrod4", "mediumslateblue", "mediumspringgreen", "mediumturquoise", "mediumvioletred", "midnightblue", "red", "green", "blue", "black", "brown", "pink", "yellow", "yellow3", "yellow4", "yellowgreen", "turquoise4", "mediumblue", "lightgoldenrod4"))+ 
++     theme_classic()
+> jpeg("test.jpeg")
+> ggplot(pca$x,aes(x=PC1,y=PC2,col=coun))+
++     geom_point(size=3,alpha=0.5)+
++     scale_color_manual(values = c("lightgoldenrod4", "mediumslateblue", "mediumspringgreen", "mediumturquoise", "mediumvioletred", "midnightblue", "red", "green", "blue", "black", "brown", "pink", "yellow", "yellow3", "yellow4", "yellowgreen", "turquoise4", "mediumblue", "lightgoldenrod4"))+ 
++     theme_classic()
+> dev.off()
+RStudioGD 
+        2 
+> jpeg("test.jpeg",quality=500,height=1000, width=1000)
+> ggplot(pca$x,aes(x=PC1,y=PC2,col=coun))+
++     geom_point(size=3,alpha=0.5)+
++     scale_color_manual(values = c("lightgoldenrod4", "mediumslateblue", "mediumspringgreen", "mediumturquoise", "mediumvioletred", "midnightblue", "red", "green", "blue", "black", "brown", "pink", "yellow", "yellow3", "yellow4", "yellowgreen", "turquoise4", "mediumblue", "lightgoldenrod4"))+ 
++     theme_classic()
+> dev.off()
+RStudioGD 
+        2 
+> jpeg("test.jpeg",quality=500,height=1000, width=1000)
+> ggplot(pca$x,aes(x=PC1,y=PC2,col=coun))+
++     geom_point(size=10,alpha=0.9)+
++     scale_color_manual(values = c("lightgoldenrod4", "mediumslateblue", "mediumspringgreen", "mediumturquoise", "mediumvioletred", "midnightblue", "red", "green", "blue", "black", "brown", "pink", "yellow", "yellow3", "yellow4", "yellowgreen", "turquoise4", "mediumblue", "lightgoldenrod4"))+ 
++     theme_classic()
+> dev.off()
+RStudioGD 
+        2 
+> jpeg("test.jpeg",quality=500,height=1000, width=1000)
+> ggplot(pca$x,aes(x=PC1,y=PC2,col=coun))+
++     geom_point(size=10,alpha=0.9)+
++     geom_text(size=10)+
++     scale_color_manual(values = c("lightgoldenrod4", "mediumslateblue", "mediumspringgreen", "mediumturquoise", "mediumvioletred", "midnightblue", "red", "green", "blue", "black", "brown", "pink", "yellow", "yellow3", "yellow4", "yellowgreen", "turquoise4", "mediumblue", "lightgoldenrod4"))+ 
++     theme_classic()
+Error: geom_text requires the following missing aesthetics: label
+> jpeg("test.jpeg",quality=500,height=1000, width=1000)
+> ggplot(pca$x,aes(x=PC1,y=PC2,col=coun))+
++     geom_point(size=10,alpha=0.9)+
++     geom_text(size=10,aes(label = mpg))+
++     scale_color_manual(values = c("lightgoldenrod4", "mediumslateblue", "mediumspringgreen", "mediumturquoise", "mediumvioletred", "midnightblue", "red", "green", "blue", "black", "brown", "pink", "yellow", "yellow3", "yellow4", "yellowgreen", "turquoise4", "mediumblue", "lightgoldenrod4"))+ 
++     theme_classic()
+Don't know how to automatically pick scale for object of type tbl_df/tbl/data.frame. Defaulting to continuous.
+Error: Aesthetics must be either length 1 or the same as the data (19): label
+> ggplot(pca$x,aes(x=PC1,y=PC2,col=coun))+
++     geom_point(size=10,alpha=0.9)+
++     geom_text(size=10,aes(label = coun))+
++     scale_color_manual(values = c("lightgoldenrod4", "mediumslateblue", "mediumspringgreen", "mediumturquoise", "mediumvioletred", "midnightblue", "red", "green", "blue", "black", "brown", "pink", "yellow", "yellow3", "yellow4", "yellowgreen", "turquoise4", "mediumblue", "lightgoldenrod4"))+ 
++     theme_classic()
+> dev.off()
+RStudioGD 
+        2 
+> jpeg("test.jpeg",quality=500,height=1000, width=1000)
+> ggplot(pca$x,aes(x=PC1,y=PC2,col=coun))+
++     geom_point(size=10,alpha=0.9)+
++     geom_text(size=5,aes(label = coun))+
++     scale_color_manual(values = c("lightgoldenrod4", "mediumslateblue", "mediumspringgreen", "mediumturquoise", "mediumvioletred", "midnightblue", "red", "green", "blue", "black", "brown", "pink", "yellow", "yellow3", "yellow4", "yellowgreen", "turquoise4", "mediumblue", "lightgoldenrod4"))+ 
++     theme_classic()
+> dev.off()
+RStudioGD 
+        2 
