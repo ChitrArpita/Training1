@@ -9,6 +9,7 @@ echo "for line in fileinput.input():" >> Transpose.py
 echo "   m.append(line.strip().split(\"\t\"))" >> Transpose.py
 echo "for row in zip(*m):" >> Transpose.py
 echo  "   print \"\t\".join(row)" >> Transpose.py
+echo  "   print (\"\t\".join(row))" >> Transpose.py ## for higher version of python
 
 chmod +x Transpose.py
 
